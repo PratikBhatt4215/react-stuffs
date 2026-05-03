@@ -15,9 +15,12 @@ const RestaurantCard = (props) => {
         className="rounded-md"
         alt="res-logo"
         src={CDN_URL + cloudinaryImageId}
+        onError={(e) => {
+          e.target.src = "https://via.placeholder.com/508x320?text=No+Image";
+        }}
       />
       <h3 className="font-bold py-2 text-lg">{name}</h3>
-      <h4>{cuisines.join(", ")}</h4>
+      <h4>{cuisines?.join(", ")}</h4>
       <h4>{avgRating} Stars</h4>
       <h4>{costForTwo}</h4>
       <h4>{sla.slaString}</h4>

@@ -31,9 +31,9 @@ const RestaurantMenu = () => {
     <div className="text-center">
       <h1 className="font-extrabold text-2xl my-6">{name}</h1>
       <p className="font-bold text-lg">
-        {cuisines.join(" , ")} - {costForTwoMessage}
+        {cuisines?.join(" , ")} - {costForTwoMessage}
       </p>
-      {categories.map((category, index) => (
+      {categories?.map((category, index) => (
         <RestaurantCategory
           key={category?.card?.card?.title}
           data={category?.card?.card}

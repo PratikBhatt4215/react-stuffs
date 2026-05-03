@@ -14,19 +14,16 @@ const Body = () => {
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.61610&lng=73.72860&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
+    const data = await fetch("https://namastedev.com/api/v1/listRestaurants");
     const json = await data.json();
     console.log(json);
 
-    setListOfRestaurants(
-      //Optional Chaining
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setFilteredRestaurant(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
+    const restaurants =
+      json?.data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants || [];
+
+    setListOfRestaurants(restaurants);
+    setFilteredRestaurant(restaurants);
   };
   //Conditional Rendering
   // if (listOfRestaurants.length === 0) {
@@ -50,7 +47,7 @@ const Body = () => {
           <button
             onClick={() => {
               const filteredRestaurant = listOfRestaurants.filter((res) =>
-                res.info.name.toLowerCase().includes(searchText.toLowerCase())
+                res.info.name.toLowerCase().includes(searchText.toLowerCase()),
               );
               setFilteredRestaurant(filteredRestaurant);
             }}
@@ -63,7 +60,7 @@ const Body = () => {
           onClick={() => {
             //filter logic
             const filteredList = listOfRestaurants.filter(
-              (res) => res.info.avgRating > 4
+              (res) => res.info.avgRating > 4,
             );
             setFilteredRestaurant(filteredList);
             // console.log(listOfRestaurants);

@@ -4,5 +4,7 @@ export const CDN_URL =
 export const LOGO_URL =
   "https://i.pinimg.com/originals/34/0c/6a/340c6add7519212185a08d4205eb1965.png";
 
-export const MENU_API_URL =
-  "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.61610&lng=73.72860&restaurantId=";
+export const RESTAURANT_LIST_API_URL =
+  "https://namastedev.com/api/v1/listRestaurants";
+
+export const MENU_API_URL = "https://namastedev.com/api/v1/listRestaurantMenu/";

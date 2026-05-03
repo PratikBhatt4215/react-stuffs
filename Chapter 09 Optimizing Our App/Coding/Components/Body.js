@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOlineStatus";
+import { RESTAURANT_LIST_API_URL } from "../utils/constants";
 
 const Body = () => {
   // console.log("Componenet rerendered");
@@ -16,20 +17,16 @@ const Body = () => {
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.61610&lng=73.72860&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
+    const data = await fetch(RESTAURANT_LIST_API_URL);
     const json = await data.json();
     // console.log(json);
 
-    setListOfRestaurants(
-      //Optional Chaining
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
+    const restaurants =
+      json?.data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants || [];
 
-    setFilteredRestaurant(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
+    setListOfRestaurants(restaurants);
+    setFilteredRestaurant(restaurants);
   };
 
   const styleCard = {
@@ -66,7 +63,7 @@ const Body = () => {
           <button
             onClick={() => {
               const filteredRestaurant = listOfRestaurants.filter((res) =>
-                res.info.name.toLowerCase().includes(searchText.toLowerCase())
+                res.info.name.toLowerCase().includes(searchText.toLowerCase()),
               );
               setFilteredRestaurant(filteredRestaurant);
             }}
@@ -79,7 +76,7 @@ const Body = () => {
           onClick={() => {
             //filter logic
             const filteredList = listOfRestaurants.filter(
-              (res) => res.info.avgRating > 4
+              (res) => res.info.avgRating > 4,
             );
             setFilteredRestaurant(filteredList);
             // console.log(listOfRestaurants);
